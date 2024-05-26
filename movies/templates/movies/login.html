@@ -1,0 +1,84 @@
+{% extends "movies/base.html" %}
+
+{% block article %}
+<div class="flex justify-left">
+    <button id="returnButton" class="inline-block px-4 py-2 bg-red-600 text-white rounded-md text-center hover:bg-red-700">Return</button>
+</div>
+
+<script>
+        document.getElementById('returnButton').addEventListener('click', function() { history.back();
+        });
+</script>
+
+<div class="mt-5 flex justify-center">
+    <div class="max-w-xl w-full bg-blue-700 text-white p-6 rounded-lg shadow-md">
+        <h1 class="text-center text-2xl font-poppins mb-5">Login</h1>
+        <h2 class="text-center text-5xl font-poppins my-5">🔒</h2>
+
+        {% if messages %}
+        <div class="messages">
+            {% for message in messages %}
+            <div class="{{ message.tags }}">{{ message }}</div>
+            {% endfor %}
+            <script>
+                // Script para limpiar los campos de entrada cuando se muestra un mensaje de error
+                document.addEventListener('DOMContentLoaded', function() {
+                    // Obtener los campos de entrada de username y password
+                    const usernameField = document.getElementById('id_username');
+                    const passwordField = document.getElementById('id_password');
+                    
+                    // Limpiar los valores de los campos de entrada
+                    usernameField.value = '';
+                    passwordField.value = '';
+                });
+            </script>
+        </div>
+        {% endif %}
+
+        <form method="post" class="mb-8">
+            {% csrf_token %}
+            <div class="mb-4">
+                <label for="id_username" class="block text-white text-sm font-bold mb-2">Username</label>
+                <div class="relative text-black">
+                    {{ form.username }}
+                </div>
+            </div>
+            <div class="mb-4">
+                <label for="id_password" class="block text-white text-sm font-bold mb-2">Password</label>
+                <div class="relative text-black">
+                    {{ form.password }}
+                    <button type="button" class="absolute inset-y-0 right-0 px-3 py-2 text-white" id="toggle-password">
+                        <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6 text-gray-500 hover:text-gray-700 cursor-pointer" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 12a3 3 0 11-6 0 3 3 0 016 0zM9 12s1.5 2 3 2 3-2 3-2m-9 3.5a9.31 9.31 0 0012 0m-12 0a9.31 9.31 0 0012 0m-12-9a9.31 9.31 0 0012 0m-12 0a9.31 9.31 0 0012 0" />
+                            <path d="M0 0h24v24H0z" fill="none"/>
+                        </svg>
+                    </button>
+                </div>
+            </div>
+            <div class="text-center"> <!-- Contenedor para centrar el botón -->
+                <button type="submit" class="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded mt-5 focus:outline-none focus:shadow-outline">
+                    Sign In
+                </button>
+            </div>
+        </form>
+       
+        <div class="text-center mt-4">
+        <a class="inline-block align-baseline font-bold text-sm text-blue-500 hover:text-blue-800" href="{% url 'register' %}">
+            Don't have an account? Register
+        </a>
+        </div>
+
+    </div>
+</div>
+
+<script>
+    const togglePassword = document.getElementById('toggle-password');
+    const passwordField = document.getElementById('password-field');
+
+    togglePassword.addEventListener('click', function() {
+        const type = passwordField.getAttribute('type') === 'password' ? 'text' : 'password';
+        passwordField.setAttribute('type', type);
+    });
+</script>
+
+{% endblock %}
