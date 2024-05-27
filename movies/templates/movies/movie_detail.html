@@ -8,7 +8,7 @@
 
 <div class="flex flex-col md:flex-row bg-blue-700 my-4 justify-center items-center">
     <div class="w-full md:w-1/3 mx-2 my-2 overflow-hidden"> <!-- Asegúrate de que el contenedor tenga un ancho del 100% y ningún margen adicional -->
-        <img class="w-full h-auto border-4 border-black p-1" src="https://media.themoviedb.org/t/p/w300_and_h450_bestv2/{{movie.poster_path}}" alt="the imitation game poster">
+        <img class="mx-auto w-full h-auto border-4 border-black p-1" src="https://media.themoviedb.org/t/p/w300_and_h450_bestv2/{{movie.poster_path}}">
     </div>
     <header class="w-full md:w-2/3 px-4 my-4">
         <h1 class="movie-title text-2xl md:text-4xl font-bold text-center"><strong>{{movie.title}}</strong></h1>
@@ -67,23 +67,24 @@
 <div>
     <h1 class="text-2xl font-bold my-4 text-center">🎬 Recommendations</h1>
     {% if recommendations %}
-        <div id="movie_list" class="flex flex-wrap justify-center">
+        <div id="movie_list" class="flex flex-wrap justify-center items-center">
         {% for movie in recommendations %}
-            <div class="flex-none w-full sm:w-48 m-2 border-4 border-blue-700 border-double rounded-lg p-2">
+            <div class="flex-none w-full sm:w-48 sm:h-87 m-2 my-4 mx-auto border-4 border-blue-700 border-double rounded-lg p-2">
                 <a href="/movies/{{ movie.id }}/">
-                    <img class="w-full h-auto sm:h-64 rounded-lg" src="https://media.themoviedb.org/t/p/w300_and_h450_bestv2/{{movie.poster_path}}" alt="{{movie.title}} poster">
+                    <img class="mx-auto w-auto h-auto rounded-lg" src="https://media.themoviedb.org/t/p/w300_and_h450_bestv2/{{movie.poster_path}}" alt="{{movie.title}} poster">
                 </a>
-                <div class="p-2">
-                    <h1 class="whitespace-nowrap overflow-hidden text-ellipsis font-bold"><a class="mt-2" href="/movies/{{ movie.id }}/">{{ movie.title }}</a></h1>
-                    <p class="text-right">⭐ {{ movie.average_rating|default:"No reviews yet"|floatformat:1 }}</p>
+                <div class="text-center">
+                    <h1 class="text-nowrap text-ellipsis overflow-hidden font-bold mt-2">
+                        <a class="text-blue-700" href="/movies/{{ movie.id }}/">{{ movie.title }}</a>
+                    </h1>
+                    <p class="text-blue-700">⭐ {{ movie.average_rating|default:"No reviews yet"|floatformat:1 }}</p>
                 </div>
             </div>
         {% endfor %}
         </div>
     {% else %}
-        <p class="text-center">No recommendations are available.</p>
+        <p>No recommendations are available.</p>
     {% endif %}
 </div>
-
 
 {% endblock %}
