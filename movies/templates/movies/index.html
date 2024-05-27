@@ -3,28 +3,31 @@
 
 
 {% if movie_list %}
-    <div id="movie_list" class="flex flex-wrap justify-center items-center ">
+    <div id="movie_list" class="flex flex-wrap justify-center">
     {% for movie in movie_list %}
-        <div class="flex-none w-full h-full sm:w-48 sm:h-87 m-2 my-4 mx-2 border-4 border-blue-700 border-double rounded-lg p-2">
+        <div class="flex-none w-full sm:w-48 m-2 border-4 border-blue-700 border-double rounded-lg p-2">
             <a href="/movies/{{ movie.id }}/">
-                <img class="w-auto h-4/6 sm:w-48 sm:h-4/6 rounded-lg" 
-                src="https://media.themoviedb.org/t/p/w300_and_h450_bestv2/{{movie.poster_path}}" alt="{{movie.title}} poster" >
+                <img class="w-full h-auto sm:h-64 rounded-lg" 
+                     src="https://media.themoviedb.org/t/p/w300_and_h450_bestv2/{{ movie.poster_path }}" 
+                     alt="{{ movie.title }} poster">
             </a>
-            
-            <div class="h-2/6 p-2">
-                <h1 class="text-nowrap text-ellipsis overflow-hidden font-bold"><a class="mt-2" href="/movies/{{ movie.id }}/">{{ movie.title }}</a></h1>
-                <p class="text-nowrap p-2 italic">
-                    {{ movie.release_date|date:"F Y" }} </p>
-                    
+            <div class="p-2">
+                <h1 class="whitespace-nowrap overflow-hidden text-ellipsis font-bold">
+                    <a class="mt-2" href="/movies/{{ movie.id }}/">{{ movie.title }}</a>
+                </h1>
+                <p class="whitespace-nowrap overflow-hidden text-ellipsis italic">
+                    {{ movie.release_date|date:"F Y" }}
+                </p>
                 <p class="text-right">
-                     ⭐ {{ movie.average_rating|default:"No reviews yet"|floatformat:1 }}
+                    ⭐ {{ movie.average_rating|default:"No reviews yet"|floatformat:1 }}
                 </p>
             </div>
         </div>
     {% endfor %}
-    
+    </div>
 {% else %}
-    <p>No movies are available.</p>
+    <p class="text-center">No movies are available.</p>
 {% endif %}
+
 
 {% endblock article %}
